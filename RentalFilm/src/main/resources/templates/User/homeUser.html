@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Film</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Bagian atas / header dari homepage -->
+    <header class="header">
+        <div class="header_Container">
+            <h1 class="judul">Rental Film</h1>
+            <div class="header_nav">
+                <a href="#about-us">About Us</a>
+                <a href="/search">Advanced Search</a>
+                <div class="profile">
+                    <span class="profile_icon">&#128100;</span>
+                    <div class="profile_menu">
+                        <a href="#">Etalase</a>
+                        <a href="#">History</a>
+                        <a href="#">LogOut</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bagian untuk menampilkan gambar film dengan cara nanti di slideshow -->
+    <section class="film_Slideshow">
+        <div class="slideshow_Container">
+            <div class="slide">
+                <img src="/assets/film/oppenheimer.jpeg" alt="Oppenheimer" title="Oppenheimer">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/mission-impossible.jpg" alt="Mission Impossible: Dead Reckoning" title="Mission Impossible: Dead Reckoning">
+            </div>    
+            <div class="slide">
+                <img src="/assets/film/fastFurious.jpg" alt="Fast & Furious 9" title="Fast & Furious 9">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/conjuring2.jpg" alt="Conjuring2" title="Conjuring2">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/red-notice.jpg" alt="Red Notice" title="Red Notice">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/nun.jpg" alt="The Nun" title="The Nun">
+            </div>
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+    </section>
+
+    <!-- Bagian mencari film berdasarkan JUDUL -->
+    <section id="search">
+        <h2>Search Film</h2>
+        <div class="search_Container">
+            <input type="text" class="searchbar" placeholder="Insert Title Movie ...">
+            <button class="search_Button">Search</button>
+        </div>
+    </section>
+
+    <!-- Bagian Profil Aktor yang akan dilihat oleh user beserta gambar aktor -->
+    <section id="actors" class="actor_Container">
+        <h2>Popular Actors</h2>
+        <div class="actor_Grid">
+            <div class="actor_Poster" data-actor="cillian">
+                <img src="/assets/actor/cillian.jpeg" alt="Cillian Murphy" title="Cillian Murphy">
+                <h3>Cillian Murphy</h3>
+            </div>
+            <div class="actor_Poster" data-actor="tom-cruise">
+                <img src="/assets/actor/TomCruise.jpg" alt="Tom Cruise" title="Tom Cruise">
+                <h3>Tom Cruise</h3>
+            </div>
+            <div class="actor_Poster" data-actor="paul-walker">
+                <img src="/assets/actor/paul.jpg" alt="Paul Walker" title="Paul Walker">
+                <h3>Paul Walker</h3>
+            </div>
+        </div>
+        <div class="actor_Details" id="actor-details">
+        </div>
+    </section>
+
+    <!-- Bagian bawah atau header tentang informasi website -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Selamat Datang di TUGAS BESAR PBW RENTAL FILM</p>
+    </section>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
