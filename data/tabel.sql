@@ -29,29 +29,28 @@ CREATE TABLE Genre(
 );
 
 CREATE TABLE Users(
-	id SERIAL PRIMARY KEY,
+	email varchar (50) PRIMARY KEY,
 	nama varchar (50),
-	email varchar (50),
 	pass varchar (20),
 	role varchar (10)
 );
 
 CREATE TABLE Keranjang(
-	idUser int REFERENCES Users(id),
+	emailU varchar (50) REFERENCES Users(email),
 	idFilm int REFERENCES Film(id),
-	PRIMARY KEY (idUser, idFilm)
+	PRIMARY KEY (emailU, idFilm)
 );
 
 CREATE TABLE Peminjaman(
 	id SERIAL PRIMARY KEY,
-	idUser int REFERENCES Users(id),
+	emailU varchar (50) REFERENCES Users(email),
 	idFilm int REFERENCES Film(id),
 	tanggal DATE
 );
 
 CREATE TABLE Pengembalian(
 	id SERIAL PRIMARY KEY,
-	idUser int REFERENCES Users(id),
+	emailU varchar (50) REFERENCES Users(email),
 	idFilm int REFERENCES Film(id),
 	tanggal DATE,
 	denda double precision
