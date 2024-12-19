@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Film - Advanced Search</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header yang sama dengan homescreen -->
+    <header class="header">
+        <div class="header_Container">
+            <h1 class="judul"><a href="/homeUser" class="rental">Rental Film</a></h1>
+            <div class="header_nav">
+                <a href="#about-us">About Us</a>
+                <!-- <a href="#search">Advanced Search</a> -->
+                <div class="profile">
+                    <span class="profile_icon">&#128100;</span>
+                    <div class="profile_menu">
+                        <a href="#">Etalase</a>
+                        <a href="#">History</a>
+                        <a href="#">LogOut</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bagian untuk mencari secara spesifik (aktor, genre, umur) -->
+    <section class="advanced_Search">
+        <h2>Advanced Search</h2>
+        <form>
+            <div class="filter">
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                    <option value="action">Action</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="drama">Drama</option>
+                    <option value="thriller">Thriller</option>
+                </select>
+            </div>
+
+            <div class="filter">
+                <label for="actor">Actor:</label>
+                <input type="text" id="actor" name="actor">
+            </div>
+
+            <div class="filter">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title">
+            </div>
+
+            <div class="filter">
+                <label for="age">Age:</label>
+                <input type="text" id="age" name="age">
+            </div>
+
+            <button type="submit" class="search_Button">Search</button>
+        </form>
+    </section>
+
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Selamat Datang di TUGAS BESAR PBW RENTAL FILM</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
