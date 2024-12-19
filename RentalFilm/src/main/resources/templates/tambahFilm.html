@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Film</title>
+  <link rel="stylesheet" th:href="@{/Film/styleTambahFilm.css}">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <span>Hi, Admin</span>
+      <button id="logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Tambah Film</a></li>
+        <li><a href="#">Tambah Genre</a></li>
+        <li><a href="#">Tambah Aktor</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="form-container">
+        <h1>Tambah Film Baru</h1>
+        <form action = "/admin/tambahFilm" method="post">
+          <div class="form-group">
+            <label for="poster">Upload Poster</label>
+            <input type="file" id="poster" accept="image/*">
+            <img id="poster-preview" alt="Preview Poster" style="display: none;">
+          </div>
+
+          <div class="form-group">
+            <label for="judul">Judul Film</label>
+            <input type="text" id="judul" placeholder="Masukkan judul film">
+          </div>
+
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <div class="rating-stars">
+              <span onclick="gfg(1)"class="star">&#9733;</span>
+              <span onclick="gfg(2)" class="star">&#9733;</span>
+              <span onclick="gfg(3)" class="star">&#9733;</span>
+              <span onclick="gfg(4)" class="star">&#9733;</span>
+              <span onclick="gfg(5)" class="star">&#9733;</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="aktor">Aktor</label>
+            <input type="text" id="aktor" placeholder="Cari aktor..." list="aktor-list">
+            <datalist id="aktor-list">
+              <option th:each="actor : ${actors}" th:value="${actor}"></option>
+              <option value="Leonardo DiCaprio">
+              <option value="Jennifer Lawrence">
+              <option value="Tom Hardy">
+              <option value="Scarlett Johansson">
+              <option value="Morgan Freeman">
+            </datalist>
+          </div>
+
+          <div class="form-group">
+            <label>Genre</label>
+            <div class="genre-checkboxes">
+              <label class="genre">Action
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="genre">Drama
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="genre">Comedy
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="genre">Romance
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="genre">Horor
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sinopsis">Sinopsis</label>
+            <textarea id="sinopsis" rows="4" placeholder="Deskripsikan film secara singkat"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="batasan">Batasan Umur</label>
+            <select id="batasan">
+              <option value="all">Semua Umur</option>
+              <option value="13">13+</option>
+              <option value="17">17+</option>
+              <option value="21">21+</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="stok">Stok Film</label>
+            <input type="number" id="stok" placeholder="Masukkan jumlah stok film" min="0">
+          </div>
+          
+
+          <div class="form-actions">
+            <button type="reset" class="btn-cancel">Batal</button>
+            <button type="submit" class="btn-save">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+
+<script>
+  let stars = document.getElementsByClassName("star");
+ 
+// Funtion to update rating
+function gfg(n) {
+    remove();
+    for (let i = 0; i < n; i++) {
+        if (n == 1) cls = "one";
+        else if (n == 2) cls = "two";
+        else if (n == 3) cls = "three";
+        else if (n == 4) cls = "four";
+        else if (n == 5) cls = "five";
+        stars[i].className = "star " + cls;
+    }
+}
+
+function remove() {
+    let i = 0;
+    while (i < 5) {
+        stars[i].className = "star";
+        i++;
+    }
+}
+</script>
