@@ -1,0 +1,183 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: black;
+  background: white;
+}
+
+header {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header #logout {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: right;
+}
+
+header #logout:hover {
+  background-color: black;
+  color: white;
+}
+
+.main-container {
+  display: flex;
+}
+
+aside {
+  background-color: black;
+  color: white;
+  width: 200px;
+  min-height: 100vh;
+  padding: 20px 10px;
+}
+
+.sidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: white;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Rating bintang */
+.star {
+  font-size: 5vh;
+  cursor: pointer;
+}
+
+.one, .two, .three, .four, .five{
+  color: yellow
+}
+
+.genre {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  user-select: none;
+}
+
+.genre input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: rgb(224, 224, 224);
+}
+
+.genre:hover input ~ .checkmark {
+  background-color: #605c5c;
+}
+
+.genre input:checked ~ .checkmark {
+  background-color: black;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.genre input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.genre .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-cancel, .btn-save {
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+.btn-save:hover {
+  background-color: black;
+  color: white;
+}
