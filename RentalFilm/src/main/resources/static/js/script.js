@@ -36,7 +36,7 @@ function loadPage(page) {
 
 // Fungsi untuk memuat film berdasarkan nama aktor
 function fetchFilmsByActor(actorName) {
-    fetch(`/tambahFilm/search-by-actor-name?actorName=${encodeURIComponent(actorName)}`)
+    fetch(`/film/search-by-actor-name?actorName=${encodeURIComponent(actorName)}`)
     .then(response => response.json())  
     .then(films => {
         console.log('Films fetched:', films);  // Log hasil films
@@ -132,7 +132,7 @@ showSlide(currentSlide);
 // Fungsi untuk mengambil film berdasarkan rating
 async function fetchFilmsByRating(rating = null) {
     try {
-        const url = rating ? `/tambahFilm/by-rating?rating=${rating}` : '/tambahFilm/all';
+        const url = rating ? `/film/by-rating?rating=${rating}` : '/film/all';
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch films');
         
@@ -233,7 +233,7 @@ function searchFilms() {
     const searchQuery = document.querySelector('.searchbar').value;
 
     // Mengambil data film berdasarkan pencarian judul
-    fetch(`/tambahFilm/search?title=${searchQuery}`)
+    fetch(`/film/search?title=${searchQuery}`)
         .then(response => response.json())
         .then(films => {
             const searchResults = document.getElementById('searchResults');

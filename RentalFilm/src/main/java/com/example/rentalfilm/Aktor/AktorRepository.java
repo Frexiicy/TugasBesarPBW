@@ -16,4 +16,8 @@ public interface AktorRepository {
     List<Aktor> findAllWithPagination(int page, int size);
 
     void saveAktor(String nama, byte[] foto);
+
+    int findIdByName(String name);
+
+    List<Aktor> findByName(String name);
 }

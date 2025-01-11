@@ -32,6 +32,18 @@ public class Film {
         this.harga = convertToIdr(harga);
     }
 
+    public Film(int id, String judul, int rating, String sinopsis, String batas_usia, int stok, double harga, byte[] poster) {
+        this.id = id;
+        this.judul = judul;
+        this.rating = rating;
+        this.sinopsis = sinopsis;
+        this.batas_usia = batas_usia;
+        this.stok = stok;
+        this.harga = convertToIdr(harga);
+        this.poster = poster;
+    }
+    
+
     public Film(int id, String judul, double harga) {
         this.id = id;
         this.judul = judul;

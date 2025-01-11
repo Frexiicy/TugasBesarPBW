@@ -18,10 +18,16 @@ public class AktorController {
         return aktorRepository.findAll();
     }
 
+    // @GetMapping("/search-by-name")
+    // @ResponseBody
+    // public Aktor searchActorByName(@RequestParam("name") String name) {
+    //     return aktorRepository.findByNama(name);
+    // }
+
     @GetMapping("/search-by-name")
     @ResponseBody
-    public Aktor searchActorByName(@RequestParam("name") String name) {
-        return aktorRepository.findByNama(name);
+    public List<Aktor> searchActorByName(@RequestParam("name") String name) {
+        return aktorRepository.findByName(name); // Anda perlu menambahkan method findByName di AktorRepository
     }
 
     @GetMapping("/paginated-list")

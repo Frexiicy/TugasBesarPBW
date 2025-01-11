@@ -52,4 +52,17 @@ public class JdbcGenreRepository implements GenreRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Genre> getAllGenres() {
+        String sql = "SELECT id, nama FROM Genre";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Genre genre = new Genre();
+            genre.setId(rs.getInt("id"));
+            genre.setNama(rs.getString("nama"));
+            return genre;
+        });
+    }
+
+    
 }

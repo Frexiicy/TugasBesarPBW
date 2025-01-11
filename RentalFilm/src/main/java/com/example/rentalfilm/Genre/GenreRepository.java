@@ -14,4 +14,6 @@ public interface GenreRepository {
     void saveGenre(String nama);
 
     Genre findByNama(String nama);
+
+    List<Genre> getAllGenres(); // Metode baru untuk mengambil semua genre
 }

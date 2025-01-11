@@ -28,10 +28,26 @@ public class JdbcFilmRepository implements FilmRepository {
         return new Film(rs.getInt("id"), rs.getString("judul"), rs.getDouble("harga"));
     }
 
+    // @Override
+    // public List<Film> findAllFilms() {
+    //     String sql = "SELECT * FROM Film ORDER BY id ASC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm);
+    // }
     @Override
     public List<Film> findAllFilms() {
         String sql = "SELECT * FROM Film ORDER BY id ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm);
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            )
+        );
     }
 
     @Override
@@ -102,33 +118,124 @@ public class JdbcFilmRepository implements FilmRepository {
         return jdbcTemplate.query(sql, this::mapRowToCart, emailu);
     }
 
+    // @Override
+    // public List<Film> findFilmsByRating(int rating) {
+    //     String sql = "SELECT * FROM Film WHERE rating = ? ORDER BY rating DESC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm, rating);
+    // }
     @Override
     public List<Film> findFilmsByRating(int rating) {
         String sql = "SELECT * FROM Film WHERE rating = ? ORDER BY rating DESC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, rating);
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            ),
+            rating
+        );
     }
 
+    // @Override
+    // public List<Film> findFilmsByTitle(String title) {
+    //     String sql = "SELECT * FROM Film WHERE REPLACE(LOWER(judul), ' ', '') LIKE LOWER(REPLACE(?, ' ', '')) ORDER BY judul ASC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm, "%" + title + "%");
+    // }
     @Override
     public List<Film> findFilmsByTitle(String title) {
         String sql = "SELECT * FROM Film WHERE REPLACE(LOWER(judul), ' ', '') LIKE LOWER(REPLACE(?, ' ', '')) ORDER BY judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, "%" + title + "%");
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            ),
+            "%" + title + "%" // Menggunakan wildcard untuk pencarian parsial
+        );
     }
 
+    // @Override
+    // public List<Film> findFilmsByAge(String batasUsia) {
+    //     String sql = "SELECT * FROM Film WHERE LOWER(batas_usia) = LOWER(?) ORDER BY judul ASC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm, batasUsia);
+    // }
     @Override
     public List<Film> findFilmsByAge(String batasUsia) {
         String sql = "SELECT * FROM Film WHERE LOWER(batas_usia) = LOWER(?) ORDER BY judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, batasUsia);
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            ),
+            batasUsia
+        );
     }
 
+    // @Override
+    // public List<Film> findFilmsByGenre(int genreId) {
+    //     String sql = "SELECT f.* FROM Film f JOIN GenreFilm gf ON f.id = gf.idFilm WHERE gf.idGenre = ? ORDER BY f.judul ASC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm, genreId);
+    // }
     @Override
     public List<Film> findFilmsByGenre(int genreId) {
-        String sql = "SELECT f.* FROM Film f JOIN GenreFilm gf ON f.id = gf.idFilm WHERE gf.idGenre = ? ORDER BY f.judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, genreId);
+        String sql = "SELECT f.* FROM Film f " +
+                    "JOIN GenreFilm gf ON f.id = gf.idFilm " +
+                    "WHERE gf.idGenre = ? " +
+                    "ORDER BY f.judul ASC"; // Query untuk mendapatkan film berdasarkan genre
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            ),
+            genreId
+        );
     }
 
+    // @Override
+    // public List<Film> findFilmsByActor(int actorId) {
+    //     String sql = "SELECT f.* FROM Film f JOIN AktorFilm fa ON f.id = fa.idFilm WHERE fa.idAktor = ? ORDER BY f.judul ASC";
+    //     return jdbcTemplate.query(sql, this::mapRowToFilm, actorId);
+    // }
     @Override
     public List<Film> findFilmsByActor(int actorId) {
-        String sql = "SELECT f.* FROM Film f JOIN AktorFilm fa ON f.id = fa.idFilm WHERE fa.idAktor = ? ORDER BY f.judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, actorId);
+        String sql = "SELECT f.* FROM Film f " +
+                    "JOIN AktorFilm fa ON f.id = fa.idFilm " +
+                    "WHERE fa.idAktor = ? " +
+                    "ORDER BY f.judul ASC";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")
+            ),
+            actorId
+        );
     }
 }

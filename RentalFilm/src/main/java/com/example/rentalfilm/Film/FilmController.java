@@ -17,18 +17,18 @@ import com.example.rentalfilm.Aktor.AktorRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping()
+@RequestMapping("film")
 public class FilmController {
     @Autowired
-    private FilmRepository repoFilm;
+    private FilmRepository repo;
 
     @Autowired
-    private AktorRepository repoAktor;
+    private AktorRepository aktorRepo;
 
     @GetMapping("/f")
     public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
             @RequestParam("id") int id, Model model) {
-        InfoFilm infoFilm = repoFilm.getInfoFilmById(id);
+        InfoFilm infoFilm = repo.getInfoFilmById(id);
         Integer rating = infoFilm.getRating() / 2;
 
         model.addAttribute("infofilm", infoFilm);
@@ -41,7 +41,7 @@ public class FilmController {
     public String addToCart(@RequestParam("idfilm") int idfilm, HttpSession session) {
         String emailu = (String) session.getAttribute("email");
         if (emailu != null) {
-            boolean success = repoFilm.addToCart(emailu, idfilm);
+            boolean success = repo.addToCart(emailu, idfilm);
             if (success) {
                 return "redirect:/f?status=success";
             } else {
@@ -52,13 +52,14 @@ public class FilmController {
     }
 
     @GetMapping("/by-rating")
+    @ResponseBody
     public List<Film> getFilmsByRating(@RequestParam(name = "rating", required = false) Integer rating) {
         if (rating == null) {
             // Menampilkan semua film jika tidak ada rating yang dipilih
-            return repoFilm.findAllFilms();
+            return repo.findAllFilms();
         }
 
-        List<Film> films = repoFilm.findFilmsByRating(rating);
+        List<Film> films = repo.findFilmsByRating(rating);
 
         if (films.isEmpty()) {
             // Jika tidak ada film dengan rating tertentu, return pesan tidak ada film
@@ -70,35 +71,63 @@ public class FilmController {
 
     @GetMapping("/film-slideshow")
     public List<Film> getAllFilmsForSlideshow() {
-        return repoFilm.findAllFilms();
+        return repo.findAllFilms();
     }
 
-    @GetMapping("/search")
-    public List<Film> searchFilmsByTitle(@RequestParam("title") String title) {
-        List<Film> films = repoFilm.findFilmsByTitle(title);
-        return films;
-    }
+    // @GetMapping("/search")
+    // public List<Film> searchFilmsByTitle(@RequestParam("title") String title) {
+    //     List<Film> films = repo.findFilmsByTitle(title);
+    //     return films;
+    // }
+        // Menambahkan pencarian berdasarkan judul
+        @GetMapping("/search")
+        @ResponseBody
+        public List<Film> searchFilmsByTitle(@RequestParam("title") String title) {
+            List<Film> films = repo.findFilmsByTitle(title);
+            return films;
+        }
 
+    // @GetMapping("/search-by-age")
+    // public List<Film> searchFilmsByAge(@RequestParam("age") String batasUsia) {
+    //     return repo.findFilmsByAge(batasUsia);
+    // }
     @GetMapping("/search-by-age")
+    @ResponseBody
     public List<Film> searchFilmsByAge(@RequestParam("age") String batasUsia) {
-        return repoFilm.findFilmsByAge(batasUsia);
+        return repo.findFilmsByAge(batasUsia);
     }
 
+    // @GetMapping("/search-by-genre")
+    // @ResponseBody
+    // public List<Film> searchFilmsByGenre(@RequestParam("genreId") int genreId) {
+    //     return repo.findFilmsByGenre(genreId);
+    // }
     @GetMapping("/search-by-genre")
     @ResponseBody
     public List<Film> searchFilmsByGenre(@RequestParam("genreId") int genreId) {
-        return repoFilm.findFilmsByGenre(genreId);
+        return repo.findFilmsByGenre(genreId);
     }
 
+    // @GetMapping("/search-by-actor")
+    // public List<Film> searchFilmsByActor(@RequestParam("actorId") int actorId) {
+    //     return repo.findFilmsByActor(actorId);
+    // }
     @GetMapping("/search-by-actor")
+    @ResponseBody
     public List<Film> searchFilmsByActor(@RequestParam("actorId") int actorId) {
-        return repoFilm.findFilmsByActor(actorId);
+        return repo.findFilmsByActor(actorId);
     }
 
+    // @GetMapping("/search-by-actor-name")
+    // @ResponseBody
+    // public List<Film> searchFilmsByActorName(@RequestParam("actorName") String actorName) {
+    //     int actorId = aktorRepo.findIdByNama(actorName);
+    //     return repo.findFilmsByActor(actorId);
+    // }
     @GetMapping("/search-by-actor-name")
     @ResponseBody
     public List<Film> searchFilmsByActorName(@RequestParam("actorName") String actorName) {
-        int actorId = repoAktor.findIdByNama(actorName);
-        return repoFilm.findFilmsByActor(actorId);
+        int actorId = aktorRepo.findIdByName(actorName);
+        return repo.findFilmsByActor(actorId);
     }
 }
