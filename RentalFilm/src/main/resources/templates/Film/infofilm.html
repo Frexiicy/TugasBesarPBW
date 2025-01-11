@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{css/style-infofilm.css}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script th:src="@{js/infofilm.js}" defer></script>
+        <title>Rental Film</title>
+    </head>
+    <body>
+        <div class="container">  
+            <div class="image" id="cover">
+                <img src="" />
+            </div>
+            <div class="details"> <!-- detail film: judul, rating umur dan bintang, genre, stok, harga-->
+                <div class="title" th:text="${infofilm.judul}">Film Title</div>
+                <div class="rating">
+                    <div class="age-rating" th:text="${infofilm.batas_usia}">(17+) R</div>
+                    <div class="star-rating">
+                        <label class="star" th:class="${rating >= 1} ? 'star-filled' : 'star-empty'" data-value="1"> &#9733; </label>
+                        <label class="star" th:class="${rating >= 2} ? 'star-filled' : 'star-empty'" data-value="2"> &#9733; </label>
+                        <label class="star" th:class="${rating >= 3} ? 'star-filled' : 'star-empty'" data-value="3"> &#9733; </label>
+                        <label class="star" th:class="${rating >= 4} ? 'star-filled' : 'star-empty'" data-value="4"> &#9733; </label>
+                        <label class="star" th:class="${rating >= 5} ? 'star-filled' : 'star-empty'" data-value="5"> &#9733; </label>
+                    </div>                    
+                </div>
+                
+                <div class="genre">
+                    <span class="tag" th:each="genre : ${infofilm.genre}" th:text="${genre.nama}">Genre</span>
+                </div>
+                
+                <div class="stock">
+                    <div class="stock">Available stock: </div>
+                    <div th:text="${infofilm.stok}">n</div>
+                </div>
+                <div class="price">
+                    <div class="price">Price: </div>
+                    <div th:text="${infofilm.harga}"></div>
+                </div>
+                <form method="POST" th:action="@{/add-to-cart}">
+                    <input type="hidden" name="idfilm" th:value="${infofilm.id}">
+                    <button class="button" type="submit">Add to cart</button>
+                </form>
+            </div> 
+            <div class="description">
+                <div class="synopsis">
+                    <p id="synopsis" th:text="${infofilm.sinopsis}">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                    </p>
+                </div>
+                <div class="actors">
+                    <div href="#" th:each="aktor : ${infofilm.aktor}">
+                        <img src="" class="avatar"/><br>
+                        <span id="nama_aktor" th:text="${aktor.nama}">Actor's name</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="success" hidden>
+            <div class="popup-content" id="popup-success">
+                <h2>Added to cart</h1>
+                <a href="/f" class="button">Close</a>
+            </div>
+        </div>
+        <div class="popup" id="failure" hidden>
+            <div class="popup-content" id="popup-failure">
+                <h2>Failed to add to cart</h1>
+                <a href="/f" class="button">Close</a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{css/style-history.css}">
+        <title>Histori</title>
+    </head>
+    <body>
+        <div th:replace="Fragments/header-user :: header"></div>
+        <div class="container">  
+            <ul class="table">
+                <li class="table-header">
+                    <div class="col tanggal-pinjam">Borrowing Date</div>
+                    <div class="col judul">Film Title</div>
+                    <div class="col tanggal-kembali">Returning Date</div>
+                    <div class="col harga">Price</div>
+                    <div class="col denda">Penalty</div>
+                </li>
+                <li class="table-row" th:each="histori : ${histori}">
+                    <div class="col tanggal-pinjam" th:text="${histori.tanggalPinjam}">2024-12-10</div>
+                    <div class="col judul" th:text="${histori.judul}">Film Title Goes Here</div>
+                    <div class="col tanggal-kembali" th:text="${histori.tanggalKembali}">2024-12-17</div>
+                    <div class="col harga" th:text="${histori.harga}">Rp10,000</div>
+                    <div class="col denda" th:text="${histori.denda}">Rp10,000</div>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

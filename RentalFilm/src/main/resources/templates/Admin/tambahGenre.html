@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Genre</title>
+  <link rel="stylesheet" th:href="@{Film/styleTambahAktordanGenre.css}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Tambah Genre Baru</h1>
+    <form th:action="@{/addGenre}" th:method="post">
+
+      <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+      </div>
+      
+      <!-- Nama Genre -->
+      <div class="form-group">
+        <label for="nama-genre">Nama Genre</label>
+        <input type="text" name="nama" id="nama-genre" placeholder="Masukkan nama genre">
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="form-actions">
+          <button type="reset" class="btn-cancel">Batal</button>
+          <button type="submit" class="btn-save">Simpan</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

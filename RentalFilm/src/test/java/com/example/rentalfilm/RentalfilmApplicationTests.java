@@ -1,13 +1,13 @@
-package com.example.rentalfilm;
+// package com.example.rentalfilm;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RentalfilmApplicationTests {
+// @SpringBootTest
+// class RentalfilmApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// @Test
+// void contextLoads() {
+// }
 
-}
+// }

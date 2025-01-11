@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Actor</title>
+  <link rel="stylesheet" th:href="@{Film/styleTambahAktordanGenre.css}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Tambah Aktor Baru</h1>
+    <form th:action="@{/addActor}" th:method="post">
+
+      <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+      </div>
+
+      <!-- Nama Aktor -->
+      <div class="form-group">
+        <label for="nama-aktor">Nama Aktor</label>
+        <input type="text" id="nama-aktor" name = "nama" placeholder="Masukkan nama aktor" required>
+      </div>
+
+      <!-- Foto Aktor -->
+      <div class="form-group">
+        <label for="foto-aktor">Foto Aktor</label>
+        <input type="file" id="foto-aktor" accept="image/*" onchange="previewFoto(event)" required>
+        <img id="aktor-preview" alt="Preview Foto Aktor" style="display: none;">
+        <input type="hidden" name="fotoBase64" id="foto-base64">
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="form-actions">
+          <button type="reset" class="btn-cancel">Batal</button>
+          <button type="submit" class="btn-save">Simpan</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function previewFoto(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = function() {
+        document.getElementById('foto-base64').value = reader.result.split(',')[1]; // Simpan base64 ke hidden field
+        document.getElementById('aktor-preview').src = reader.result;
+        document.getElementById('aktor-preview').style.display = 'block';
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
