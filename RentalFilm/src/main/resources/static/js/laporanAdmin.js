@@ -1,39 +1,80 @@
-// Data untuk grafik penyewaan
-var labels = []; // Data label, misalnya tanggal
-var data = [];   // Data jumlah penyewaan
+document.addEventListener("DOMContentLoaded", function () {
+    // Ambil elemen yang berisi data untuk grafik
+    var grafikDataElement = document.getElementById("grafikData");
 
-// Inisialisasi grafik penyewaan
-var ctx = document.getElementById("rentalChart").getContext("2d");
-var rentalChart = new Chart(ctx, {
-    type: "line", // Line chart
-    data: {
-        labels: labels,
-        datasets: [{
-            label: "Jumlah Penyewaan",
-            data: data,
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            fill: true,
-        }],
-    },
-    options: {
-        responsive: true,
-        scales: {
-            x: {
-                title: {
+    // Pastikan elemen grafikData ada
+    if (!grafikDataElement) {
+        console.error("Elemen grafikData tidak ditemukan di halaman.");
+        return;
+    }
+
+    // Parsing data-labels dan data-data dari elemen HTML
+    var labels = [];
+    var data = [];
+    try {
+        labels = JSON.parse(grafikDataElement.getAttribute("data-labels") || "[]");
+        data = JSON.parse(grafikDataElement.getAttribute("data-data") || "[]");
+
+        // Debugging data
+        console.log("Labels yang diterima:", labels);
+        console.log("Data yang diterima:", data);
+
+        // Periksa jika data kosong
+        if (labels.length === 0 || data.length === 0) {
+            console.warn("Data grafik kosong. Pastikan data sudah dikirim dari server.");
+        }
+    } catch (error) {
+        console.error("Kesalahan saat mem-parsing data grafik:", error);
+    }
+
+    // Pastikan elemen canvas untuk grafik tersedia
+    var chartCanvas = document.getElementById("rentalChart");
+    if (!chartCanvas) {
+        console.error("Elemen canvas untuk grafik (rentalChart) tidak ditemukan.");
+        return;
+    }
+
+    // Buat grafik menggunakan Chart.js
+    var ctx = chartCanvas.getContext("2d");
+    var rentalChart = new Chart(ctx, {
+        type: "line", 
+        data: {
+            labels: labels, // Label sumbu X
+            datasets: [{
+                label: "Jumlah Penyewaan", // Label data
+                data: data, // Data sumbu Y
+                backgroundColor: "rgba(75, 192, 192, 0.6)", // Warna batang
+                borderColor: "rgba(75, 192, 192, 1)", // Warna garis batang
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
                     display: true,
-                    text: "Tanggal",
+                    position: "top",
                 },
             },
-            y: {
-                title: {
-                    display: true,
-                    text: "Jumlah Penyewaan",
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Bulan", // Judul sumbu X
+                    },
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Jumlah Penyewaan", // Judul sumbu Y
+                    },
+                    beginAtZero: true,
                 },
             },
         },
-    },
+    });
 });
+
 
 // Fungsi untuk mengunduh laporan PDF
 function downloadPDF() {
