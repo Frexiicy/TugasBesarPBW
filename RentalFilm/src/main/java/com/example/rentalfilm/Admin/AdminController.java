@@ -18,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.example.rentalfilm.Aktor.AktorRepository;
 import com.example.rentalfilm.Film.Film;
 import com.example.rentalfilm.Film.FilmRepository;
+
 import com.example.rentalfilm.Genre.Genre;
 import com.example.rentalfilm.Genre.GenreRepository;
 import com.example.rentalfilm.Histori.Histori;
 import com.example.rentalfilm.Histori.HistoriRepository;
 import com.example.rentalfilm.Laporan.Laporan;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -48,6 +51,7 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
 
     @GetMapping("/home")
     public String homeAdmin(Model model) {

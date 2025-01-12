@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.rentalfilm.Laporan.Laporan;
 
+
 @Repository
 public class JdbcHistoriRepository implements HistoriRepository {
     @Autowired
@@ -117,7 +118,7 @@ public class JdbcHistoriRepository implements HistoriRepository {
 
         return listPinjam;
     }
-
+  
     @Override
     public List<Laporan> getLaporan() {
         String sql = "SELECT judul, tanggal_pinjam, tanggal_kembali FROM histori";
@@ -161,4 +162,5 @@ public class JdbcHistoriRepository implements HistoriRepository {
 
         jdbcTemplate.update(sql, email, idFilm, tanggalKembali, dendaIdr, idPeminjaman);
     }
+
 }

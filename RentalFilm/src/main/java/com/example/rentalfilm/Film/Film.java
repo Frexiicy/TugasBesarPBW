@@ -24,6 +24,7 @@ public class Film {
     private String posterBase64;
     private List<Integer> genresId;
 
+
     public Film(int id, String judul, int rating, String sinopsis, String batas_usia, int stok, double harga,
             byte[] poster) {
         this.id = id;

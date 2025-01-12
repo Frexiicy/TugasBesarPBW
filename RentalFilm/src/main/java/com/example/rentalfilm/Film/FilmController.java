@@ -25,6 +25,16 @@ public class FilmController {
     @Autowired
     private AktorRepository repoAktor;
 
+
+    @GetMapping("/f")
+    public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
+            @RequestParam("id") int id, Model model) {
+        InfoFilm infoFilm = repoFilm.getInfoFilmById(id);
+        Integer rating = infoFilm.getRating() / 2;
+
+        model.addAttribute("infofilm", infoFilm);
+        model.addAttribute("rating", rating);
+
     @GetMapping("/detail")
     public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "id") int id, Model model) {

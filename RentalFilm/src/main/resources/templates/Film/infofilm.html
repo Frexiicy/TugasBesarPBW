@@ -39,7 +39,9 @@
                     <div class="price">Price: </div>
                     <div th:text="${infofilm.harga}"></div>
                 </div>
+
                 <form method="POST" th:action="@{/film/add-to-cart}">
+
                     <input type="hidden" name="idfilm" th:value="${infofilm.id}">
                     <button class="button" type="submit">Add to cart</button>
                 </form>
@@ -61,13 +63,17 @@
         <div class="popup" id="success" hidden>
             <div class="popup-content" id="popup-success">
                 <h2>Added to cart</h1>
+
                 <a th:href="@{'/film/detail?id=' + ${infofilm.id}}" class="button">Close</a>
+
             </div>
         </div>
         <div class="popup" id="failure" hidden>
             <div class="popup-content" id="popup-failure">
                 <h2>Failed to add to cart</h1>
+
                 <a th:href="@{'/film/detail?id=' + ${infofilm.id}}" class="button">Close</a>
+>
             </div>
         </div>
     </body>

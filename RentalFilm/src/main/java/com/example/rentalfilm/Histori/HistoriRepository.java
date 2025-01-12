@@ -23,4 +23,5 @@ public interface HistoriRepository {
     Histori findByIdPeminjaman (int idPeminjaman);
 
     void addPengembalian (String email, int idFilm, int idPeminjaman, LocalDate tanggalPinjam, LocalDate tanggalKembali);
+
 }
