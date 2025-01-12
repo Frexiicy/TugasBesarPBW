@@ -1,23 +1,92 @@
 package com.example.rentalfilm.Film;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("tambahFilm")
+@RequestMapping()
 public class FilmController {
     @Autowired
-    private FilmRepository repo;
+    private FilmRepository repoFilm;
 
-    public FilmController(FilmRepository repo){
-        this.repo = repo;
+    @GetMapping("/f")
+    public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
+            @RequestParam("id") int id, Model model) {
+        InfoFilm infoFilm = repoFilm.getInfoFilmById(id);
+        Integer rating = infoFilm.getRating() / 2;
+
+        model.addAttribute("infofilm", infoFilm);
+        model.addAttribute("rating", rating);
+        model.addAttribute("status", status);
+        return "Film/infofilm";
     }
 
-    @GetMapping()
-    public String tambahFilm(){
-        return "tambahFilm";
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("idfilm") int idfilm, HttpSession session) {
+        String emailu = (String) session.getAttribute("email");
+        if (emailu != null) {
+            boolean success = repoFilm.addToCart(emailu, idfilm);
+            if (success) {
+                return "redirect:/f?status=success";
+            } else {
+                return "redirect:/f?status=failure";
+            }
+        }
+        return "redirect:/login";
     }
 
+    @GetMapping("/by-rating")
+    public List<Film> getFilmsByRating(@RequestParam(name = "rating", required = false) Integer rating) {
+        if (rating == null) {
+            // Menampilkan semua film jika tidak ada rating yang dipilih
+            return repoFilm.findAllFilms();
+        }
+
+        List<Film> films = repoFilm.findFilmsByRating(rating);
+
+        if (films.isEmpty()) {
+            // Jika tidak ada film dengan rating tertentu, return pesan tidak ada film
+            return new ArrayList<>();
+        }
+
+        return films;
+    }
+
+    @GetMapping("/film-slideshow")
+    public List<Film> getAllFilmsForSlideshow() {
+        return repoFilm.findAllFilms();
+    }
+
+    @GetMapping("/search")
+    public List<Film> searchFilmsByTitle(@RequestParam("title") String title) {
+        List<Film> films = repoFilm.findFilmsByTitle(title);
+        return films;
+    }
+
+    @GetMapping("/search-by-age")
+    public List<Film> searchFilmsByAge(@RequestParam("age") String batasUsia) {
+        return repoFilm.findFilmsByAge(batasUsia);
+    }
+
+    @GetMapping("/search-by-genre")
+    @ResponseBody
+    public List<Film> searchFilmsByGenre(@RequestParam("genreId") int genreId) {
+        return repoFilm.findFilmsByGenre(genreId);
+    }
+
+    @GetMapping("/search-by-actor")
+    public List<Film> searchFilmsByActor(@RequestParam("actorId") int actorId) {
+        return repoFilm.findFilmsByActor(actorId);
+    }
 }
