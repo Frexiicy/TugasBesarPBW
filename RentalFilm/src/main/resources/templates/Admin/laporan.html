@@ -5,39 +5,68 @@
     <title>Laporan Penyewaan Film</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="/static/css/laporan.css">
+    <link rel="stylesheet" th:href="@{/css/style-add.css}">
 </head>
 <body>
-    <h1>Laporan Penyewaan Film</h1>
+    <header>
+    <div class="header-container">
+        <h1>Hi, Admin</h1>
+        <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+    </header>
+    
+    <div class="main-container">
+        <aside>
+            <ul class="sidebar">
+            <li><a th:href="@{/a/home}">Back to Home</a></li>
+            <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/a/addFilm}">Add Film</a></li>
+            <li><a>Add Genre</a></li>
+            <li><a th:href="@{/a/addActor}">Add Actor</a></li>
+            </ul>
+        </aside>
 
-    <!-- Tabel Penyewaan -->
-    <section>
-        <h2>Laporan Penyewaan</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Judul Film</th>
-                    <th>Tanggal Sewa</th>
-                    <th>Tanggal Kembali</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="laporan : ${laporanPeminjaman}">
-                    <td th:text="${laporan.judul}"></td>
-                    <td th:text="${laporan.tanggalSewa}"></td>
-                    <td th:text="${laporan.tanggalKembali}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <main>
+            <div class="form-container">
+                <!-- Tabel Penyewaan -->
+                <section>
+                    <h2>Laporan Penyewaan</h2>
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Judul Film</th>
+                                <th>Tanggal Sewa</th>
+                                <th>Tanggal Kembali</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-row">
+                            <tr th:each="laporan : ${laporanPeminjaman}">
+                                <td class="judul-film" th:text="${laporan.judul}"></td>
+                                <td class="tanggal-pinjam" th:text="${laporan.tanggalPinjam}"></td>
+                                <td class="tanggal-kembali" th:text="${laporan.tanggalKembali}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
 
-    <!-- Grafik Penyewaan -->
-    <section>
-        <h2>Grafik Penyewaan</h2>
-        <canvas id="rentalChart"></canvas>
-    </section>
+                <!-- Grafik Penyewaan -->
+                <section>
+                    <h2>Grafik Penyewaan</h2>
+                    <canvas id="rentalChart"></canvas>
 
-    <!-- Tombol Unduh Laporan PDF -->
-    <button onclick="downloadPDF()">Unduh Laporan PDF</button>
+                    <div id="grafikData" 
+                    data-labels='["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]' 
+                    data-data='[50, 45, 60, 55, 70, 65, 80, 75, 90, 85, 100, 95]'></div>
+
+                    <canvas id="rentalChart"></canvas>
+                </section>
+
+                <!-- Tombol Unduh Laporan PDF -->
+                <button onclick="downloadPDF()">Unduh Laporan PDF</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="/js/laporan.js"></script>
 </body>
 </html>
