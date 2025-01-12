@@ -15,19 +15,17 @@ import com.example.rentalfilm.Aktor.AktorRepository;
 import com.example.rentalfilm.Film.Film;
 import com.example.rentalfilm.Film.FilmRepository;
 import com.example.rentalfilm.Genre.GenreRepository;
+import com.example.rentalfilm.Laporan.Laporan;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/a")
 public class AdminController {
     @Autowired
     private FilmRepository repo;
     private AktorRepository aktorRepo;
     private GenreRepository genreRepo;
-
-    @Autowired
-    private AdminService adminService;
 
     @Autowired
     public AdminController(FilmRepository repo, AktorRepository aktorRepo, GenreRepository genreRepo) {
@@ -36,12 +34,15 @@ public class AdminController {
         this.genreRepo = genreRepo;
     }
 
-    @GetMapping("/homeAdmin")
+    @Autowired
+    private AdminService adminService;
+
+    @GetMapping("/home")
     public String homeAdmin(Model model) {
         return "Admin/homeAdmin";
     }
 
-    @GetMapping("/searchAdmin")
+    @GetMapping("/search")
     public String showAdvancedSearchAdmin(Model model, HttpSession session) {
         return "Admin/searchAdmin";
     }
@@ -96,7 +97,7 @@ public class AdminController {
             }
         }
 
-        return "redirect:/dashboard";
+        return "redirect:/a/dashboard";
     }
 
     @GetMapping("/addActor")
@@ -118,7 +119,7 @@ public class AdminController {
         byte[] fotoBytes = Base64.getDecoder().decode(fotoBase64);
         aktorRepo.saveAktor(nama, fotoBytes);
 
-        return "redirect:/dashboard";
+        return "redirect:/a/dashboard";
     }
 
     @GetMapping("/addGenre")
@@ -138,16 +139,18 @@ public class AdminController {
 
         genreRepo.saveGenre(nama);
 
-        return "redirect:/dashboard";
+        return "redirect:/a/dashboard";
     }
 
-    @GetMapping("/laporan") //UBAH - Endpoint khusus admin untuk laporan
+    @GetMapping("/laporan")
     public String showGrafikLaporan(Model model) {
         List<String> labels = adminService.getGrafikLabels();
         List<Integer> data = adminService.getGrafikData();
+        List<Laporan> laporanPeminjaman = adminService.getLaporanPeminjaman();
 
         model.addAttribute("grafikLabels", labels);
         model.addAttribute("grafikData", data);
+        model.addAttribute("laporanPeminjaman", laporanPeminjaman);
         return "Admin/laporan"; // View khusus admin untuk laporan
     }
 }
