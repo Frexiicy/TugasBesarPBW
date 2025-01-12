@@ -4,31 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Film - Advanced Search</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <!-- Header yang sama dengan homescreen -->
-    <header class="header">
-        <div class="header_Container">
-            <h1 class="judul"><a href="/homeAdmin" class="rental">Rental Film</a></h1>
-            <div class="header_nav">
-                <a href="#about-us">About Us</a>
-                <!-- <a href="#search">Advanced Search</a> -->
-                <div class="profile">
-                    <span class="profile_icon">&#128100;</span>
-                    <div class="profile_menu">
-                        <a href="#">Etalase</a>
-                        <a href="#">History</a>
-                        <a href="#">LogOut</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div th:replace="Fragments/header-admin :: header"></div>
 
     <!-- Tombol Back to Homepage -->
     <div class="back-to-homepage">
-        <a href="/homeAdmin" class="back-button">&#8592; Back to Homepage</a>
+        <a href="/a/home" class="back-button">&#8592; Back to Homepage</a>
     </div>
 
     <!-- Bagian untuk mencari secara spesifik (aktor, genre, umur) -->

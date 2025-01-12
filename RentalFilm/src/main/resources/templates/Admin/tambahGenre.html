@@ -4,29 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Genre</title>
-  <link rel="stylesheet" th:href="@{Film/styleTambahAktordanGenre.css}">
+  <link rel="stylesheet" th:href="@{/css/style-add.css}">
 </head>
 <body>
-  <div class="form-container">
-    <h1>Tambah Genre Baru</h1>
-    <form th:action="@{/addGenre}" th:method="post">
+  <header>
+    <div class="header-container">
+      <h1>Hi, Admin</h1>
+      <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+  </header>
 
-      <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
-      </div>
-      
-      <!-- Nama Genre -->
-      <div class="form-group">
-        <label for="nama-genre">Nama Genre</label>
-        <input type="text" name="nama" id="nama-genre" placeholder="Masukkan nama genre">
-      </div>
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a th:href="@{/a/home}">Back to Home</a></li>
+        <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/a/addFilm}">Add Film</a></li>
+        <li><a>Add Genre</a></li>
+        <li><a th:href="@{/a/addActor}">Add Actor</a></li>
+      </ul>
+    </aside>
 
-      <!-- Tombol Aksi -->
-      <div class="form-actions">
-          <button type="reset" class="btn-cancel">Batal</button>
-          <button type="submit" class="btn-save">Simpan</button>
+    <main>
+      <div class="form-container">
+        <h1>Add New Genre</h1>
+        <form th:action="@{/a/addGenre}" th:method="post"> 
+          
+          <div class="form-group">
+            <label id="label-form" for="nama-genre">Genre Name</label>
+            <input type="text" name="nama" id="nama-genre" placeholder="Insert genre name">
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="button">Cancel</button>
+            <button type="submit" class="button">Save</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </main>
   </div>
 </body>
 </html>

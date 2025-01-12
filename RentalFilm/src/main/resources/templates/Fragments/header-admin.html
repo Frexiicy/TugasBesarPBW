@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rental Film - Advanced Search</title>
-    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Rental Film</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <header class="header" th:fragment="header">
+    <header class="header">
         <div class="header_Container">
-            <h1 class="judul"><a href="/homeUser" class="rental">Rental Film</a></h1>
+            <h1 class="judul"><a href="#">Rental Film</a></h1>
             <div class="header_nav">
                 <a href="#about-us">About Us</a>
-                <a href="#search">Advanced Search</a>
+                <a href="/a/search">Advanced Search</a>
                 <div class="profile">
                     <span class="profile_icon">&#128100;</span>
                     <div class="profile_menu">
-                        <a href="/c">Etalase</a>
+                        <a href="/a/d">Dashboard</a>
                         <a href="/h">History</a>
+                        <a href="/a/addFilm">Add Film</a>
+                        <a href="/a/addGenre">Add Genre</a>
+                        <a href="/a/addActor">Add Actor</a>
                         <a href="/logout">LogOut</a>
                     </div>
                 </div>

@@ -3,55 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Actor</title>
-  <link rel="stylesheet" th:href="@{Film/styleTambahAktordanGenre.css}">
+  <title>Add Genre</title>
+  <link rel="stylesheet" th:href="@{/css/style-add.css}">
 </head>
 <body>
-  <div class="form-container">
-    <h1>Tambah Aktor Baru</h1>
-    <form th:action="@{/addActor}" th:method="post">
+  <header>
+    <div class="header-container">
+      <h1>Hi, Admin</h1>
+      <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+  </header>
 
-      <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
-      </div>
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a th:href="@{/a/home}">Back to Home</a></li>
+        <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/a/addFilm}">Add Film</a></li>
+        <li><a th:href="@{/a/addGenre}">Add Genre</a></li>
+        <li><a>Add Actor</a></li>
+      </ul>
+    </aside>
 
-      <!-- Nama Aktor -->
-      <div class="form-group">
-        <label for="nama-aktor">Nama Aktor</label>
-        <input type="text" id="nama-aktor" name = "nama" placeholder="Masukkan nama aktor" required>
-      </div>
+    <main>
+      <div class="form-container">
+        <h1>Add New Actor</h1>
+        <form th:action="@{/a/addActor}" th:method="post"> 
+          
+          <div class="form-group">
+            <label id="label-form" for="nama-aktor">Nama Aktor</label>
+            <input type="text" id="nama-aktor" name = "nama" placeholder="Masukkan nama aktor" required>
+          </div>
+    
+          <div class="form-group">
+            <label id="label-form" for="foto-aktor">Foto Aktor</label>
+            <input type="file" id="foto-aktor" accept="image/*" onchange="previewFoto(event)" required>
+            <img id="aktor-preview" alt="Preview Foto Aktor" style="display: none;">
+            <input type="hidden" name="fotoBase64" id="foto-base64">
+          </div>
 
-      <!-- Foto Aktor -->
-      <div class="form-group">
-        <label for="foto-aktor">Foto Aktor</label>
-        <input type="file" id="foto-aktor" accept="image/*" onchange="previewFoto(event)" required>
-        <img id="aktor-preview" alt="Preview Foto Aktor" style="display: none;">
-        <input type="hidden" name="fotoBase64" id="foto-base64">
+          <div class="form-actions">
+            <button type="reset" class="button">Cancel</button>
+            <button type="submit" class="button">Save</button>
+          </div>
+        </form>
       </div>
-
-      <!-- Tombol Aksi -->
-      <div class="form-actions">
-          <button type="reset" class="btn-cancel">Batal</button>
-          <button type="submit" class="btn-save">Simpan</button>
-      </div>
-    </form>
+    </main>
   </div>
-
-  <script>
-    function previewFoto(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-
-      reader.onloadend = function() {
-        document.getElementById('foto-base64').value = reader.result.split(',')[1]; // Simpan base64 ke hidden field
-        document.getElementById('aktor-preview').src = reader.result;
-        document.getElementById('aktor-preview').style.display = 'block';
-      };
-
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    }
-  </script>
 </body>
 </html>

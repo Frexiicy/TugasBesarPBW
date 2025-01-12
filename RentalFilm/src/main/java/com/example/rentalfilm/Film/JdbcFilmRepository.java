@@ -21,7 +21,7 @@ public class JdbcFilmRepository implements FilmRepository {
 
     public Film mapRowToFilm(ResultSet rs, int rowNum) throws SQLException {
         return new Film(rs.getInt("id"), rs.getString("judul"), rs.getInt("rating"), rs.getString("sinopsis"),
-                rs.getString("batas_usia"), rs.getInt("stok"), rs.getDouble("harga"));
+                rs.getString("batas_usia"), rs.getInt("stok"), rs.getDouble("harga"), rs.getBytes("poster"));
     }
 
     public Film mapRowToCart(ResultSet rs, int rowNum) throws SQLException {
@@ -105,13 +105,22 @@ public class JdbcFilmRepository implements FilmRepository {
     @Override
     public List<Film> findFilmsByRating(int rating) {
         String sql = "SELECT * FROM Film WHERE rating = ? ORDER BY rating DESC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, rating);
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Film(
+                rs.getInt("id"),
+                rs.getString("judul"),
+                rs.getInt("rating"),
+                rs.getString("sinopsis"),
+                rs.getString("batas_usia"),
+                rs.getInt("stok"),
+                rs.getDouble("harga"),
+                rs.getBytes("poster")),
+                rating);
     }
 
     @Override
     public List<Film> findFilmsByTitle(String title) {
         String sql = "SELECT * FROM Film WHERE REPLACE(LOWER(judul), ' ', '') LIKE LOWER(REPLACE(?, ' ', '')) ORDER BY judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, "%" + title + "%");
+        return jdbcTemplate.query(sql, this::mapRowToFilm, title);
     }
 
     @Override

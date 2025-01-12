@@ -23,7 +23,7 @@ function searchFilmsByTitle() {
     const searchQuery = document.getElementById('title').value;
 
     // Mengambil data film berdasarkan pencarian judul
-    fetch(`/tambahFilm/search?title=${encodeURIComponent(searchQuery)}`)
+    fetch(`/film/search?title=${encodeURIComponent(searchQuery)}`)
         .then(response => response.json())
         .then(films => {
             const searchResults = document.getElementById('titleResults');
@@ -70,7 +70,7 @@ function searchFilmsByAge() {
     const ageQuery = document.getElementById('age').value;
 
     // Mengambil data film berdasarkan pencarian usia
-    fetch(`/tambahFilm/search-by-age?age=${encodeURIComponent(ageQuery)}`)
+    fetch(`/film/search-by-age?age=${encodeURIComponent(ageQuery)}`)
         .then(response => response.json())
         .then(films => {
             const searchResults = document.getElementById('ageResults');
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Mengambil data film berdasarkan genre yang dipilih
-        fetch(`/tambahFilm/search-by-genre?genreId=${encodeURIComponent(genreId)}`)
+        fetch(`/film/search-by-genre?genreId=${encodeURIComponent(genreId)}`)
             .then(response => response.json())
             .then(films => {
                 const searchResults = document.getElementById('genreResults');
@@ -179,7 +179,7 @@ function searchFilmsByActor() {
             console.log("Actor ID:", actorId); // Debug log
 
             // Mengambil data film berdasarkan ID aktor
-            fetch(`/tambahFilm/search-by-actor?actorId=${encodeURIComponent(actorId)}`)
+            fetch(`/film/search-by-actor?actorId=${encodeURIComponent(actorId)}`)
                 .then(response => response.json())
                 .then(films => {
                     console.log("Films found:", films); // Debug log

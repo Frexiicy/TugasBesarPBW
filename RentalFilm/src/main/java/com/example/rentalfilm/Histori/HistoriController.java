@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.rentalfilm.Film.Film;
@@ -15,6 +16,7 @@ import com.example.rentalfilm.Film.FilmRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/u")
 public class HistoriController {
     @Autowired
     private HistoriRepository repoHistori;
@@ -56,7 +58,7 @@ public class HistoriController {
             for (Integer id : idfilm) {
                 repoHistori.addToPeminjaman(emailu, id);
             }
-            return "redirect:/p";
+            return "redirect:/u/p";
         }
 
         return "redirect:/login";
@@ -80,7 +82,7 @@ public class HistoriController {
         String emailu = (String) session.getAttribute("email");
         if (emailu != null) {
             repoHistori.addToPengembalian(emailu, idfilm);
-            return "redirect:/h";
+            return "redirect:/u/h";
         }
 
         return "redirect:/login";

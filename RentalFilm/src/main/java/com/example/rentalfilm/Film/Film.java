@@ -19,10 +19,9 @@ public class Film {
     private int stok;
     private String harga;
     private byte[] poster;
-    private List<Genre> genres;
-    private List<Aktor> actors;
 
-    public Film(int id, String judul, int rating, String sinopsis, String batas_usia, int stok, double harga) {
+    public Film(int id, String judul, int rating, String sinopsis, String batas_usia, int stok, double harga,
+            byte[] poster) {
         this.id = id;
         this.judul = judul;
         this.rating = rating;
@@ -30,6 +29,7 @@ public class Film {
         this.batas_usia = batas_usia;
         this.stok = stok;
         this.harga = convertToIdr(harga);
+        this.poster = poster;
     }
 
     public Film(int id, String judul, double harga) {

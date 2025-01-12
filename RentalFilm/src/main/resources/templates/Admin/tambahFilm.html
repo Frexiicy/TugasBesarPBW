@@ -4,33 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Film</title>
-  <link rel="stylesheet" th:href="@{/Film/styleTambahFilm.css}">
+  <link rel="stylesheet" th:href="@{/css/style-add.css}">
 </head>
 <body>
   <header>
     <div class="header-container">
-      <span>Hi, Admin</span>
-      <button id="logout">Logout</button>
+      <h1>Hi, Admin</h1>
+      <a id="logout" th:href="@{/logout}">Log out</a>
     </div>
   </header>
 
   <div class="main-container">
     <aside>
       <ul class="sidebar">
-        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/a/home}">Back to Home</a></li>
+        <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
         <li><a>Add Film</a></li>
-        <li><a th:href="@{/addGenre}">Add Genre</a></li>
-        <li><a th:href="@{/addActor}">Add Actor</a></li>
+        <li><a th:href="@{/a/addGenre}">Add Genre</a></li>
+        <li><a th:href="@{/a/addActor}">Add Actor</a></li>
       </ul>
     </aside>
 
     <main>
       <div class="form-container">
         <h1>Add New Film</h1>
-        <form th:action="@{/addFilm}" th:method="post" enctype="multipart/form-data">
+        <form th:action="@{/a/addFilm}" th:method="post" enctype="multipart/form-data">
 
           <div class="form-group">
-            <label for="poster">Upload Poster</label>
+            <label id="label-form" for="poster">Upload Poster</label>
             <input type="file" id="poster" accept="image/*" onchange="previewImage(event)" required>
             <img id="poster-preview" alt="Preview Poster" style="display: none;">
             <input type="hidden" name="posterBase64" id="poster-base64">
@@ -38,12 +39,12 @@
           
 
           <div class="form-group">
-            <label for="judul">Title</label>
+            <label id="label-form" for="judul">Title</label>
             <input type="text" id="judul" name="judul" placeholder="Enter title" th:value="${film.judul}" required>
           </div>
 
           <div class="form-group">
-            <label for="rating">Rating</label>
+            <label id="label-form" for="rating">Rating</label>
             <div class="rating-stars">
               <span onclick="setRating(1)" class="star">&#9733;</span>
               <span onclick="setRating(2)" class="star">&#9733;</span>
@@ -55,18 +56,17 @@
           </div>
 
           <div class="form-group">
-            <label for="aktor">Actor</label>
+            <label id="label-form" for="aktor">Actor<button type="button" id="add-actor">Add Actor</button></label>
             <div id="aktor-container">
               <input type="text" name="aktor" placeholder="Search actor..." list="aktor-list" class="aktor-input">
             </div>
-            <button type="button" id="add-actor">Add Actor</button>
             <datalist id="aktor-list">
               <option th:each="actor : ${actors}" th:value="${actor.nama}" th:text="${actor.nama}"></option>
             </datalist>
           </div>
 
           <div class="form-group">
-            <label>Genre</label>
+            <label id="label-form">Genre</label>
             <div class="genre-checkboxes">
               <label th:each="genre : ${genres}" class="genre" >
                   <input type="checkbox"  name="genres" th:value="${genre.id}" th:text="${genre.nama}">
@@ -75,12 +75,12 @@
           </div>
 
           <div class="form-group">
-            <label for="sinopsis">Summary</label>
+            <label id="label-form" for="sinopsis">Summary</label>
             <textarea id="sinopsis" name="sinopsis" rows="4" placeholder="Deskripsikan film secara singkat" th:text="${film.sinopsis}"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="batasan">Batasan Umur</label>
+            <label id="label-form" for="batasan">Batasan Umur</label>
             <select id="batasan" name="batas_usia">
               <option value="all">Semua Umur</option>
               <option value="13">13+</option>
@@ -91,14 +91,14 @@
           
 
           <div class="form-group">
-            <label for="stok">Stock Film</label>
+            <label id="label-form" for="stok">Stock Film</label>
             <input type="number" name="stok" id="stok" placeholder="Masukkan jumlah stok film" min="0">
           </div>
           
 
           <div class="form-actions">
-            <button type="reset" class="btn-cancel">Cancel</button>
-            <button type="submit" class="btn-save">Save</button>
+            <button type="reset" class="button">Cancel</button>
+            <button type="submit" class="button">Save</button>
           </div>
         </form>
       </div>

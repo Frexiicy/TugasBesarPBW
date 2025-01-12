@@ -17,7 +17,7 @@ import com.example.rentalfilm.Aktor.AktorRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping()
+@RequestMapping("/film")
 public class FilmController {
     @Autowired
     private FilmRepository repoFilm;
@@ -52,8 +52,10 @@ public class FilmController {
     }
 
     @GetMapping("/by-rating")
+    @ResponseBody
     public List<Film> getFilmsByRating(@RequestParam(name = "rating", required = false) Integer rating) {
-        if (rating == null) {
+        System.out.println("Rating received: " + rating);
+        if (rating == null || rating < 1 || rating > 5) {
             // Menampilkan semua film jika tidak ada rating yang dipilih
             return repoFilm.findAllFilms();
         }
@@ -69,17 +71,20 @@ public class FilmController {
     }
 
     @GetMapping("/film-slideshow")
+    @ResponseBody
     public List<Film> getAllFilmsForSlideshow() {
         return repoFilm.findAllFilms();
     }
 
     @GetMapping("/search")
+    @ResponseBody
     public List<Film> searchFilmsByTitle(@RequestParam("title") String title) {
         List<Film> films = repoFilm.findFilmsByTitle(title);
         return films;
     }
 
     @GetMapping("/search-by-age")
+    @ResponseBody
     public List<Film> searchFilmsByAge(@RequestParam("age") String batasUsia) {
         return repoFilm.findFilmsByAge(batasUsia);
     }
@@ -91,6 +96,7 @@ public class FilmController {
     }
 
     @GetMapping("/search-by-actor")
+    @ResponseBody
     public List<Film> searchFilmsByActor(@RequestParam("actorId") int actorId) {
         return repoFilm.findFilmsByActor(actorId);
     }
