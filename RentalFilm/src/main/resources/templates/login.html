@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{css/style-login.css}">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <header>
+            <img class="img" th:src="@{/images/rentalfilm.png}">
+        </header>
+        <section>
+            <h1>LOG IN</h1>
+            <p class="error" th:if="${status == 'failed'}">Invalid email or password. Please try again.</p>
+            <form th:action="@{/login}" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <input type="submit" value="Login">
+            </form>
+        </section>
+        <footer>
+            <p>
+                Are you new? <a th:href="@{/register}">Join now</a>
+            </p>
+        </footer>
+    </main>
+</body>
+</html>

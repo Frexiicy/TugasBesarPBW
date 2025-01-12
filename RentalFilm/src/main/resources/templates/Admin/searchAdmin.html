@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Film - Advanced Search</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div th:replace="Fragments/header-admin :: header"></div>
+
+    <!-- Tombol Back to Homepage -->
+    <div class="back-to-homepage">
+        <a href="/a/home" class="back-button">&#8592; Back to Homepage</a>
+    </div>
+
+    <!-- Bagian untuk mencari secara spesifik (aktor, genre, umur) -->
+    <!-- Bagian untuk mencari berdasarkan Genre -->
+    <section id="genreSearch">
+        <h2>Search by Genre</h2>
+        <div class="search_Container">
+            <select id="genre" name="genre" class="searchbar">
+                <option value="">Select Genre</option>
+                <option th:each="genre : ${genres}" 
+                        th:value="${genre.id}" 
+                        th:text="${genre.nama}"></option>
+            </select>
+            <button class="search_Button" id="genreSearchButton">Search</button>
+        </div>
+        <div id="genreResults" class="search-results"></div> <!-- Container untuk hasil pencarian genre -->
+    </section>
+
+    <!-- Bagian untuk mencari berdasarkan Aktor -->
+    <section id="actorSearch">
+        <h2>Search by Actor</h2>
+        <div class="search_Container">
+            <input type="text" id="actor" name="actor" class="searchbar" placeholder="Insert Actor Name...">
+            <button class="search_Button" id="actorSearchButton">Search</button>
+        </div>
+        <div id="actorResults" class="search-results"></div> <!-- Container untuk hasil pencarian aktor -->
+    </section>
+
+
+    <!-- Bagian untuk mencari berdasarkan Judul -->
+    <section id="titleSearch">
+        <h2>Search by Title</h2>
+        <div class="search_Container">
+            <input type="text" id="title" name="title" class="searchbar" placeholder="Insert Title Movie ...">
+            <button class="search_Button" id="titleSearchButton">Search</button>
+        </div>
+        <div id="titleResults" class="search-results"></div>
+    </section>
+
+    <!-- Bagian untuk mencari berdasarkan Umur -->
+    <section id="ageSearch">
+        <h2>Search by Age</h2>
+        <div class="search_Container">
+            <input type="text" id="age" name="age" class="searchbar" placeholder="Insert Age...">
+            <button class="search_Button" id="ageSearchButton">Search</button>
+        </div>
+        <div id="ageResults" class="search-results"></div> <!-- Container untuk hasil pencarian umur -->
+    </section>
+
+    <section id="about-uss">
+        <h2>About Us</h2>
+        <p>Selamat Datang di TUGAS BESAR PBW RENTAL FILM</p>
+    </section>
+
+    <script src="/js/searchScript.js"></script>
+</body>
+</html>

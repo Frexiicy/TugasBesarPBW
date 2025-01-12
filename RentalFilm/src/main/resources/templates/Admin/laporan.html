@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Penyewaan Film</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style-add.css}">
+</head>
+<body>
+    <header>
+    <div class="header-container">
+        <h1>Hi, Admin</h1>
+        <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+    </header>
+    
+    <div class="main-container">
+        <aside>
+            <ul class="sidebar">
+            <li><a th:href="@{/a/home}">Back to Home</a></li>
+            <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/a/addFilm}">Add Film</a></li>
+            <li><a>Add Genre</a></li>
+            <li><a th:href="@{/a/addActor}">Add Actor</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <div class="form-container">
+                <!-- Tabel Penyewaan -->
+                <section>
+                    <h2>Laporan Penyewaan</h2>
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Judul Film</th>
+                                <th>Tanggal Sewa</th>
+                                <th>Tanggal Kembali</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-row">
+                            <tr th:each="laporan : ${laporanPeminjaman}">
+                                <td class="judul-film" th:text="${laporan.judul}"></td>
+                                <td class="tanggal-pinjam" th:text="${laporan.tanggalPinjam}"></td>
+                                <td class="tanggal-kembali" th:text="${laporan.tanggalKembali}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Grafik Penyewaan -->
+                <section>
+                    <h2>Grafik Penyewaan</h2>
+                    <canvas id="rentalChart"></canvas>
+                </section>
+
+                <!-- Tombol Unduh Laporan PDF -->
+                <button onclick="downloadPDF()">Unduh Laporan PDF</button>
+            </div>
+        </main>
+    </div>
+    <div id="grafikData" 
+        data-labels="[[${grafikLabels}]]" 
+        data-data="[[${grafikData}]]">
+    </div>
+    
+    <script src="/js/laporan.js"></script>
+</body>
+</html>

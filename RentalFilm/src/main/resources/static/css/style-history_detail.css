@@ -1,0 +1,149 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  font-family: "Epilogue", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  color: #2d2d2b;
+  padding: 40px 0;
+}
+
+.container {
+  display: grid;
+  grid-template-areas: "cover title";
+  grid-auto-columns: 1fr 1fr;
+  min-height: 300px;
+  max-width: 600px;
+  background: #2d2d2b;
+  border-radius: 5px;
+}
+
+.image, .details{
+  display: block;
+}
+
+.image {
+  position: relative;
+  display: flex;
+  grid-area: cover;
+  justify-content: center;
+  top: 50px;
+  left: 40px;
+  z-index: 1;
+  align-items: center;
+  width: 150px;
+  height: 200px;
+  background-color: pink;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #00000030;
+}
+
+.details {
+  display: grid;
+  grid-area: title;
+  align-content: flex-start;
+  padding: 50px 50px 0px 0px;
+  gap: 5%;
+}
+
+.title{
+  display: flex;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.info{
+  display: flex;
+  align-content: center;
+  color: #efefef;
+  font-size: 14px;
+}
+
+.button{
+  padding: 10px 20px;
+  width: 90%;
+  max-width: 100vw;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px rgba(170, 170, 170, 0.25);
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #00000030;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color 0.3s ease;
+  
+  &:hover{
+    background-color: #f7f7f7;
+  }
+}
+
+.popup {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-content {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: pink;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#popup-failure{
+    border-top-color: red;
+    border-top-style: solid;
+    border-width: 15px;
+}
+
+#popup-success{
+    border-top-color: green;
+    border-top-style: solid;
+    border-width: 15px;
+}
+
+.popup-content .button{
+    padding: 10px 20px;
+    width: 50%;
+    max-width: 100vw;
+    background-color: #fff;
+    box-shadow: 0px 2px 1px rgba(170, 170, 170, 0.25);
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    
+    &:hover{
+      background-color: #f7f7f7;
+    }
+}
+
+[hidden]{
+  display: none;
+}

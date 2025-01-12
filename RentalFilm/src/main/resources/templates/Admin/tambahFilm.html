@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Film</title>
+  <link rel="stylesheet" th:href="@{/css/style-add.css}">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Hi, Admin</h1>
+      <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a th:href="@{/a/home}">Back to Home</a></li>
+        <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+        <li><a>Add Film</a></li>
+        <li><a th:href="@{/a/addGenre}">Add Genre</a></li>
+        <li><a th:href="@{/a/addActor}">Add Actor</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="form-container">
+        <h1>Add New Film</h1>
+        <form th:action="@{/a/addFilm}" th:method="post" enctype="multipart/form-data">
+
+          <div class="form-group">
+            <label id="label-form" for="poster">Upload Poster</label>
+            <input type="file" id="poster" accept="image/*" onchange="previewImage(event)" required>
+            <img id="poster-preview" alt="Preview Poster" style="display: none;">
+            <input type="hidden" name="posterBase64" id="poster-base64">
+          </div>
+          
+
+          <div class="form-group">
+            <label id="label-form" for="judul">Title</label>
+            <input type="text" id="judul" name="judul" placeholder="Enter title" th:value="${film.judul}" required>
+          </div>
+
+          <div class="form-group">
+            <label id="label-form" for="rating">Rating</label>
+            <div class="rating-stars">
+              <span onclick="setRating(1)" class="star">&#9733;</span>
+              <span onclick="setRating(2)" class="star">&#9733;</span>
+              <span onclick="setRating(3)" class="star">&#9733;</span>
+              <span onclick="setRating(4)" class="star">&#9733;</span>
+              <span onclick="setRating(5)" class="star">&#9733;</span>
+            </div>
+            <input type="hidden" id="rating-value" name="rating" value="n">
+          </div>
+
+          <div class="form-group">
+            <label id="label-form" for="aktor">Actor<button type="button" id="add-actor">Add Actor</button></label>
+            <div id="aktor-container">
+              <input type="text" name="aktor" placeholder="Search actor..." list="aktor-list" class="aktor-input">
+            </div>
+            <datalist id="aktor-list">
+              <option th:each="actor : ${actors}" th:value="${actor.nama}" th:text="${actor.nama}"></option>
+            </datalist>
+          </div>
+
+          <div class="form-group">
+            <label id="label-form">Genre</label>
+            <div class="genre-checkboxes">
+              <label th:each="genre : ${genres}" class="genre" >
+                  <input type="checkbox"  name="genres" th:value="${genre.id}" th:text="${genre.nama}">
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label id="label-form" for="sinopsis">Summary</label>
+            <textarea id="sinopsis" name="sinopsis" rows="4" placeholder="Deskripsikan film secara singkat" th:text="${film.sinopsis}"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label id="label-form" for="batasan">Batasan Umur</label>
+            <select id="batasan" name="batas_usia">
+              <option value="all">Semua Umur</option>
+              <option value="13">13+</option>
+              <option value="17">17+</option>
+              <option value="21">21+</option>
+            </select>
+          </div>
+          
+
+          <div class="form-group">
+            <label id="label-form" for="stok">Stock Film</label>
+            <input type="number" name="stok" id="stok" placeholder="Masukkan jumlah stok film" min="0">
+          </div>
+          
+
+          <div class="form-actions">
+            <button type="reset" class="button">Cancel</button>
+            <button type="submit" class="button">Save</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+
+<script th:inline="javascript">
+  function previewImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = function () {
+      const base64String = reader.result.split(',')[1]; // Ambil base64 tanpa prefix
+      document.getElementById('poster-base64').value = base64String; // Simpan ke input hidden
+      document.getElementById('poster-preview').src = reader.result; // Tampilkan preview
+      document.getElementById('poster-preview').style.display = "block"; // Tampilkan gambar
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+  let stars = document.getElementsByClassName("star");
+  
+  function setRating(n) {
+    document.getElementById("rating-value").value = n; // Set hidden input value
+    for (let i = 0; i < stars.length; i++) {
+      if (i < n) {
+        stars[i].classList.add("filled");
+      } else {
+        stars[i].classList.remove("filled");
+      }
+    }
+  }
+
+  setRating(0);
+
+  let actorCount = 1; // Starting with 1 input field
+
+  document.getElementById("add-actor").addEventListener("click", function() {
+    if (actorCount < 4) {
+      actorCount++;
+      
+      let newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.name = "aktor"; // Ini benar
+      newInput.placeholder = "Search actor...";
+      newInput.classList.add("aktor-input");
+      newInput.setAttribute("list", "aktor-list");
+      
+      document.getElementById("aktor-container").appendChild(newInput);
+    } else {
+      alert("You can only add up to 4 actors.");
+    }
+  });
+</script>
