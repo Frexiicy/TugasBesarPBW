@@ -35,8 +35,12 @@ public class JdbcAktorRepository implements AktorRepository {
 
     @Override
     public Aktor findByNama(String nama) {
-        String sql = "SELECT * FROM Aktor WHERE LOWER(nama) LIKE LOWER(?)";
-        return jdbcTemplate.queryForObject(sql, this::mapRowToAktor, "%" + nama + "%");
+        String sql = "SELECT * FROM aktor WHERE nama ILIKE ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, this::mapRowToAktor, "%" + nama + "%");
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

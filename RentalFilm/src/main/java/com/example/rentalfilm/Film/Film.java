@@ -19,6 +19,11 @@ public class Film {
     private int stok;
     private String harga;
     private byte[] poster;
+    private List<Genre> genres;
+    private List<Aktor> actors;
+    private String posterBase64;
+    private List<Integer> genresId;
+
 
     public Film(int id, String judul, int rating, String sinopsis, String batas_usia, int stok, double harga,
             byte[] poster) {

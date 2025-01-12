@@ -31,4 +31,12 @@ public interface FilmRepository {
     List<Film> getKeranjangByEmail(String emailu);
 
     boolean addToCart(String emailu, int idfilm);
+
+    List<String> getTanggalPeminjaman();
+
+    List<Integer> getJumlahPeminjaman();
+
+    Film findFilmsById (int id);
+
+    int updateFilm (Film film);
 }

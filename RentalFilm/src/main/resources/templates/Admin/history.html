@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/style-history_admin.css}">
+        <title>Histori</title>
+    </head>
+    <body>
+        <header>
+            <div class="header_Container">
+                <h1>Hi, Admin</h1>
+                <a id="logout" th:href="@{/logout}">Log out</a>
+            </div>
+        </header>
+        <div class="container">
+            <ul class="table">
+                <li class="table-header">
+                    <div class="col nama">Name</div>
+                    <div class="col tanggal-pinjam">Borrowing Date</div>
+                    <div class="col judul">Film Title</div>
+                    <div class="col tanggal-kembali">Returning Date</div>
+                    <div class="col harga">Price</div>
+                    <div class="col denda">Penalty</div>
+                    <div class="col status">Status</div>
+                    <div class="col aksi">Action</div>
+                </li>
+                <li class="table-row" th:each="histori : ${histori}">
+                    <div class="col nama" th:text="${histori.nama}">John Doe</div>
+                    <div class="col tanggal-pinjam" th:text="${histori.tanggalPinjam}">2024-12-10</div>
+                    <div class="col judul" th:text="${histori.judul}">Film Title Goes Here</div>
+                    <div class="col tanggal-kembali" th:text="${histori.tanggalKembali}">2024-12-17</div>
+                    <div class="col harga" th:text="${histori.harga}">Rp10,000</div>
+                    <div class="col denda" th:text="${histori.denda}">Rp10,000</div>
+                    <div class="col status" th:text="${histori.status}">returned</div>
+                    <div class="col aksi">
+                        <button th:onclick="returnFilm('${histori.idPeminjaman}')"
+                                th:disabled="${histori.status != 'borrowed'}">Return</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+
+    <script>
+        function returnFilm(historiId) {
+            var currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+            fetch('/a/returnFilm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    idPeminjaman: historiId,   // Mengganti 'id' menjadi 'idPeminjaman'
+                    tanggalKembali: currentDate
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Film has been returned successfully!");
+                } else {
+                    alert("Something went wrong. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error occurred while processing the request.");
+            });
+        }
+
+
+    </script>
+</html>
+

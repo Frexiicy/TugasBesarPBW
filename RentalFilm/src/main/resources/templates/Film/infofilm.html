@@ -3,12 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" th:href="@{css/style-infofilm.css}">
+        <link rel="stylesheet" th:href="@{/css/style-infofilm.css}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script th:src="@{js/infofilm.js}" defer></script>
+        <script th:src="@{/js/infofilm.js}" defer></script>
         <title>Rental Film</title>
     </head>
     <body>
+        <div th:replace="Fragments/header-user :: header"></div>
         <div class="container">  
             <div class="image" id="cover">
                 <img src="" />
@@ -18,11 +19,11 @@
                 <div class="rating">
                     <div class="age-rating" th:text="${infofilm.batas_usia}">(17+) R</div>
                     <div class="star-rating">
-                        <label class="star" th:class="${rating >= 1} ? 'star-filled' : 'star-empty'" data-value="1"> &#9733; </label>
-                        <label class="star" th:class="${rating >= 2} ? 'star-filled' : 'star-empty'" data-value="2"> &#9733; </label>
-                        <label class="star" th:class="${rating >= 3} ? 'star-filled' : 'star-empty'" data-value="3"> &#9733; </label>
-                        <label class="star" th:class="${rating >= 4} ? 'star-filled' : 'star-empty'" data-value="4"> &#9733; </label>
-                        <label class="star" th:class="${rating >= 5} ? 'star-filled' : 'star-empty'" data-value="5"> &#9733; </label>
+                        <label class="star" th:class="${infofilm.rating >= 1} ? 'star-filled' : 'star-empty'" data-value="1"> &#9733; </label>
+                        <label class="star" th:class="${infofilm.rating >= 2} ? 'star-filled' : 'star-empty'" data-value="2"> &#9733; </label>
+                        <label class="star" th:class="${infofilm.rating >= 3} ? 'star-filled' : 'star-empty'" data-value="3"> &#9733; </label>
+                        <label class="star" th:class="${infofilm.rating >= 4} ? 'star-filled' : 'star-empty'" data-value="4"> &#9733; </label>
+                        <label class="star" th:class="${infofilm.rating >= 5} ? 'star-filled' : 'star-empty'" data-value="5"> &#9733; </label>
                     </div>                    
                 </div>
                 
@@ -38,7 +39,9 @@
                     <div class="price">Price: </div>
                     <div th:text="${infofilm.harga}"></div>
                 </div>
-                <form method="POST" th:action="@{/add-to-cart}">
+
+                <form method="POST" th:action="@{/film/add-to-cart}">
+
                     <input type="hidden" name="idfilm" th:value="${infofilm.id}">
                     <button class="button" type="submit">Add to cart</button>
                 </form>
@@ -60,13 +63,17 @@
         <div class="popup" id="success" hidden>
             <div class="popup-content" id="popup-success">
                 <h2>Added to cart</h1>
-                <a href="/f" class="button">Close</a>
+
+                <a th:href="@{'/film/detail?id=' + ${infofilm.id}}" class="button">Close</a>
+
             </div>
         </div>
         <div class="popup" id="failure" hidden>
             <div class="popup-content" id="popup-failure">
                 <h2>Failed to add to cart</h1>
-                <a href="/f" class="button">Close</a>
+
+                <a th:href="@{'/film/detail?id=' + ${infofilm.id}}" class="button">Close</a>
+>
             </div>
         </div>
     </body>

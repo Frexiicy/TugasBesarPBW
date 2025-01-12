@@ -25,6 +25,7 @@ public class FilmController {
     @Autowired
     private AktorRepository repoAktor;
 
+
     @GetMapping("/f")
     public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
             @RequestParam("id") int id, Model model) {
@@ -33,6 +34,13 @@ public class FilmController {
 
         model.addAttribute("infofilm", infoFilm);
         model.addAttribute("rating", rating);
+
+    @GetMapping("/detail")
+    public String getInfoFilm(@RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "id") int id, Model model) {
+        InfoFilm infoFilm = repoFilm.getInfoFilmById(id);
+
+        model.addAttribute("infofilm", infoFilm);
         model.addAttribute("status", status);
         return "Film/infofilm";
     }
@@ -42,11 +50,8 @@ public class FilmController {
         String emailu = (String) session.getAttribute("email");
         if (emailu != null) {
             boolean success = repoFilm.addToCart(emailu, idfilm);
-            if (success) {
-                return "redirect:/f?status=success";
-            } else {
-                return "redirect:/f?status=failure";
-            }
+            String status = success ? "success" : "failure";
+            return "redirect:/film/detail?id=" + idfilm + "&status=" + status;
         }
         return "redirect:/login";
     }

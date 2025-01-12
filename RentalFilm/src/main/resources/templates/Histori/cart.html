@@ -9,7 +9,9 @@
     <body>
         <div th:replace="Fragments/header-user :: header"></div>
         
-        <form method="POST" th:action="@{/checkout}">
+
+        <form method="POST" th:action="@{/u/checkout}">
+
             <div class="container">  
                 <ul class="table">
                     <li class="table-row" th:each="keranjang : ${keranjang}">

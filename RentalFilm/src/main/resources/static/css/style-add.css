@@ -277,3 +277,31 @@ body {
 .profile:hover .profile_menu {
   display: block;
 }
+
+.table {  
+ 
+  .table-header {
+    background-color: #f0a500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+  }
+  
+  .tanggal-pinjam {
+    flex-basis: 25%;
+  }
+  .judul-film {
+    flex-basis: 50%;
+  }
+  .tanggal-kembali {
+    flex-basis: 25%;
+  }
+}
+
+.table, th, tr, td{
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 3px;
+}
+

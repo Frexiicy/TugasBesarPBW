@@ -58,33 +58,34 @@ public class HistoriController {
             for (Integer id : idfilm) {
                 repoHistori.addToPeminjaman(emailu, id);
             }
-            return "redirect:/u/p";
-        }
-
-        return "redirect:/login";
-    }
-
-    @GetMapping("/p")
-    public String getPeminjaman(HttpSession session, Model model) {
-        String emailu = (String) session.getAttribute("email");
-        if (emailu != null) {
-            List<Histori> peminjaman = repoHistori.getPeminjamanByEmail(emailu);
-
-            model.addAttribute("pinjam", peminjaman);
-            return "Histori/history-detail";
-        }
-
-        return "redirect:/login";
-    }
-
-    @PostMapping("/return")
-    public String returnPeminjaman(@RequestParam("idfilm") Integer idfilm, HttpSession session, Model model) {
-        String emailu = (String) session.getAttribute("email");
-        if (emailu != null) {
-            repoHistori.addToPengembalian(emailu, idfilm);
             return "redirect:/u/h";
         }
-
         return "redirect:/login";
     }
+
+    // @GetMapping("/p")
+    // public String getPeminjaman(HttpSession session, Model model) {
+    // String emailu = (String) session.getAttribute("email");
+    // if (emailu != null) {
+    // List<Histori> peminjaman = repoHistori.getPeminjamanByEmail(emailu);
+
+    // model.addAttribute("pinjam", peminjaman);
+    // return "Histori/history-detail";
+    // }
+
+    // return "redirect:/login";
+    // }
+
+    // @PostMapping("/return")
+    // public String returnPeminjaman(@RequestParam("idfilm") Integer idfilm,
+    // HttpSession session, Model model) {
+    // String emailu = (String) session.getAttribute("email");
+    // if (emailu != null) {
+    // repoHistori.addToPengembalian(emailu, idfilm);
+    // return "redirect:/u/h";
+    // }
+
+    // return "redirect:/login";
+    // }
+
 }

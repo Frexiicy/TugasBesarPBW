@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -120,7 +121,7 @@ public class JdbcFilmRepository implements FilmRepository {
     @Override
     public List<Film> findFilmsByTitle(String title) {
         String sql = "SELECT * FROM Film WHERE REPLACE(LOWER(judul), ' ', '') LIKE LOWER(REPLACE(?, ' ', '')) ORDER BY judul ASC";
-        return jdbcTemplate.query(sql, this::mapRowToFilm, title);
+        return jdbcTemplate.query(sql, this::mapRowToFilm, "%" + title + "%");
     }
 
     @Override
@@ -139,5 +140,53 @@ public class JdbcFilmRepository implements FilmRepository {
     public List<Film> findFilmsByActor(int actorId) {
         String sql = "SELECT f.* FROM Film f JOIN AktorFilm fa ON f.id = fa.idFilm WHERE fa.idAktor = ? ORDER BY f.judul ASC";
         return jdbcTemplate.query(sql, this::mapRowToFilm, actorId);
+    }
+
+    @Override
+    public List<String> getTanggalPeminjaman() {
+        // Ambil data tanggal mentah dari database
+        String sql = "SELECT DISTINCT tanggal FROM Peminjaman ORDER BY tanggal";
+        List<String> tanggalList = jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> rs.getDate("tanggal").toLocalDate().toString());
+
+        return tanggalList;
+    }
+
+    @Override
+    public List<Integer> getJumlahPeminjaman() {
+        // Ambil jumlah peminjaman berdasarkan tanggal
+        String sql = "SELECT COUNT(*) FROM Peminjaman GROUP BY tanggal ORDER BY tanggal";
+        return jdbcTemplate.queryForList(sql, Integer.class);
+    }
+
+    @Override
+    public Film findFilmsById(int id) {
+        String sql = "SELECT * FROM Film WHERE id = ?";
+        try{
+            return jdbcTemplate.queryForObject(sql, this::mapRowToFilm, id);
+        }catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public int updateFilm(Film film) {
+        String sql = "UPDATE film SET " +
+                     "judul = ?, " +
+                     "poster = ?, " +
+                     "sinopsis = ?, " +
+                     "batas_usia = ?, " +
+                     "stok = ? " +
+                     "WHERE id = ?";
+
+        // Menjalankan update query
+        return jdbcTemplate.update(sql,
+                film.getJudul(),
+                film.getPoster(),
+                film.getSinopsis(),
+                film.getBatas_usia(),
+                film.getStok(),
+                film.getId());
     }
 }

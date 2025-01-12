@@ -174,7 +174,8 @@ function displayFilms(films) {
             // Format nama file agar sesuai dengan standar (huruf kecil dan tanpa spasi)
             const imageName = film.judul.toLowerCase().replace(/\s+/g, '-'); 
             return `
-                <div class="film-card">
+
+                <div class="film-card" data-id="${film.id}">
                     <img src="/assets/film/${imageName}.jpg" alt="${film.judul}" title="${film.judul}">
                     <h3>${film.judul}</h3>
                     <p class="rating">⭐ ${film.rating}</p>
@@ -183,6 +184,7 @@ function displayFilms(films) {
             `;
         }).join('');
 
+        addCardClickListeners();
         renderPagination(page, totalPages);
     }
 
@@ -200,6 +202,17 @@ function displayFilms(films) {
             pagination.appendChild(pageButton);
         }
     }
+
+    function addCardClickListeners(){
+        const filmCards = document.querySelectorAll('.film-card');
+        filmCards.forEach(card => {
+            card.addEventListener('click', () =>{
+                const idFilm = card.getAttribute('data-id');
+                window.location.href = `/film/detail?id=${idFilm}`;
+            })
+        })
+    }
+
 
     renderPage(currentPage);
 }
