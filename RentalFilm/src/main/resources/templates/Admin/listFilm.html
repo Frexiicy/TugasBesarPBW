@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film List</title>
+  <link rel="stylesheet" th:href="@{css/style-list_film.css}">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <span>Hi, Admin</span>
+      <button id="logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/addFilm}">Add Film</a></li>
+        <li><a th:href="@{/addGenre}">Add Genre</a></li>
+        <li><a th:href="@{/addActor}">Add Actor</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="content-container">
+        <h1>Film List</h1>
+        <div class="card-container">
+          <div class="card" th:each="film : ${films}">
+            <img th:src="${film.posterBase64}" alt="Poster of Film" />
+            <p th:text="${film.posterBase64}"></p>
+            <div class="card-content">
+              <div class="card-title" th:text="${film.judul}">Film Title</div>
+              <a th:href="@{/editFilm/{id}(id=${film.id})}" class="btn-edit">Edit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

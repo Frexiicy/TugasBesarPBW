@@ -1,0 +1,131 @@
+*,
+*:before,
+*:after {
+    /* box-sizing: border-box; */
+    font-family: "Epilogue", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1c;
+}
+
+.container {
+    max-width: 1000px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+ 
+.table {
+    list-style: none;
+    padding: 0;
+}
+
+.table-header {
+    display: flex;
+    background-color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+    padding: 20px 30px;
+}
+
+.table-header .col {
+    padding: 0 10px;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 30px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px #00000030;
+}
+
+.table-row .col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-row .aksi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-row button {
+    padding: 8px 15px;
+    background-color: #f0a500;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.table-row button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media all and (max-width: 767px) {
+    .table-header {
+        display: none;
+    }
+    
+    .table-row {
+        flex-direction: column;
+    }
+    
+    .col {
+        width: 100%;
+        padding: 10px 0;
+        display: block;
+    }
+
+    .col:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 10px;
+    }
+}
+
+header {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header #logout {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-align: right;
+}
+
+header #logout:hover {
+    background-color: black;
+    color: white;
+}
+
+
+#logout {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#logout:hover {
+    color: #f0a500;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Film</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header_Container">
+            <h1 class="judul"><a href="#">Rental Film</a></h1>
+            <div class="header_nav">
+                <a href="#about-us">About Us</a>
+                <a href="/a/search">Advanced Search</a>
+                <div class="profile">
+                    <span class="profile_icon">&#128100;</span>
+                    <div class="profile_menu">
+                        <a href="/a/laporan">Laporan</a>
+                        <a href="/a/h">History</a>
+                        <a href="/a/addFilm">Add Film</a>
+                        <a href="/a/addGenre">Add Genre</a>
+                        <a href="/a/addActor">Add Actor</a>
+                        <a href="/logout">LogOut</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bagian untuk menampilkan gambar film dengan cara nanti di slideshow -->
+    <section class="film_Slideshow">
+        <div class="slideshow_Container">
+            <div class="slide">
+                <img src="/assets/film/wicked.jpg" alt="Wicked" title="Wicked">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/moana-2.jpg" alt="Moana 2" title="Moana 2">
+            </div>    
+            <div class="slide">
+                <img src="/assets/film/gladiator-ii.jpg" alt="Gladiator 2" title="Gladiator 2">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/the-substance.jpg" alt="The Substance" title="The Substance">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/dear-santa.jpg" alt="Dear Santa" title="Dear Santa">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/gladiator.jpg" alt="Gladiator" title="Gladiator">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/deadpool-&-wolverine.jpg" alt="Deadpool and Wolverine" title="Deadpool and Wolverine">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/the-lord-of-the-rings-the-war-of-the-rohirrim.jpg" alt="Lord Rings" title="Lord Rings">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/the-equalizer-3.jpg" alt="Equalizer" title="Equalizer">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/our-little-secret.jpg" alt="Little Secret" title="Little Secret">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/red-one.jpg" alt="Red One" title="Red One">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/wrestlemania-xl.jpg" alt="Wrestle" title="Wrestle">
+            </div>
+            <div class="slide">
+                <img src="/assets/film/fast-x.jpg" alt="Fast X" title="Fast X">
+            </div>
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+    </section>
+
+
+<!-- Container untuk menampilkan film berdasarkan kategori  rating-->
+<section id="film-container" class="film-container">
+    <h2>Films</h2>
+    <form id="ratingForm">
+        <label for="rating">Filter by Rating:</label>
+        <select id="rating" name="rating">
+            <option value="Choose">Choose</option> <!-- Nilai kosong untuk semua rating -->
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button type="button" id="filterButton">Filter</button>
+    </form>
+    <div id="filmGrid" class="film-grid"></div>
+    <div id="pagination" class="pagination"></div>
+</section>
+
+<!-- Bagian mencari film berdasarkan JUDUL -->
+<section id="search">
+    <h2>Search Film</h2>
+    <div class="search_Container">
+        <input type="text" class="searchbar" placeholder="Insert Title Movie ...">
+        <button class="search_Button" id="searchButton">Search</button>
+    </div>
+    <!-- Tempat untuk menampilkan hasil pencarian -->
+    <div id="searchResults" class="search-results"></div>  <!-- Container untuk hasil pencarian -->
+</section>
+
+
+    <!-- Bagian Profil Aktor yang akan dilihat oleh user beserta gambar aktor -->
+    <section id="actors" class="actor_Container">
+        <h2>Popular Actors</h2>
+        <div class="actor_Grid" id="actorGrid">
+            <!-- Aktor-aktor akan dimuat di sini menggunakan JS -->
+        </div>
+        <div class="actor_Details" id="actor-details"></div>
+        <!-- Navigasi Pagination -->
+        <div class="pagination">
+            <button id="prevPage" onclick="loadPage(currentPage - 1)">Previous</button>
+            <span id="pageNumber">Page 1</span>
+            <button id="nextPage" onclick="loadPage(currentPage + 1)">Next</button>
+        </div>
+    </section>
+
+    <!-- Bagian bawah atau header tentang informasi website -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Selamat Datang di TUGAS BESAR PBW RENTAL FILM</p>
+    </section>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

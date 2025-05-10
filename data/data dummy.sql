@@ -86,15 +86,20 @@ VALUES
 
 INSERT INTO Peminjaman (emailU, idFilm, tanggal)
 VALUES
-	('dodo@gmail.com',2,'2024-12-01'), ('dodo@gmail.com',5,'2024-12-01'),
-	('alice@gmail.com',3,'2024-12-02'), ('alice@gmail.com',4,'2024-12-02'), ('alice@gmail.com',8,'2024-12-05'),
-	('john@gmail.com',1,'2024-12-07'), ('john@gmail.com',5,'2024-12-07');
+	('dodo@gmail.com',2,'2024-12-01'),
+	('dodo@gmail.com',5,'2024-12-01'),
+	('alice@gmail.com',3,'2024-12-02'),
+	('alice@gmail.com',4,'2024-12-02'),
+	('alice@gmail.com',8,'2024-12-05'),
+	('john@gmail.com',1,'2024-12-07'),
+	('john@gmail.com',5,'2024-12-07');
 
-INSERT INTO Pengembalian (emailU, idFilm, tanggal, denda)
+INSERT INTO Pengembalian (emailU, idFilm, tanggal, denda, idPeminjaman)
 VALUES
-	('dodo@gmail.com',1,'2024-12-01',0), 
-	('alice@gmail.com',13,'2024-12-02',10000),('alice@gmail.com',12,'2024-12-02',10000),
-	('john@gmail.com',3,'2024-12-07',0);
+	('dodo@gmail.com',2,'2024-12-08',0,1), 
+	('alice@gmail.com',3,'2024-12-19',10000,2),
+	('alice@gmail.com',4,'2024-12-19',10000,3),
+	('john@gmail.com',1,'2024-12-14',0,6);
 
 --SELECT
 SELECT * FROM Film;

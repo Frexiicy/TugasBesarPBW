@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Genre</title>
+  <link rel="stylesheet" th:href="@{/css/style-add.css}">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Hi, Admin</h1>
+      <a id="logout" th:href="@{/logout}">Log out</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside>
+      <ul class="sidebar">
+        <li><a th:href="@{/a/home}">Back to Home</a></li>
+        <li><a th:href="@{/a/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/a/addFilm}">Add Film</a></li>
+        <li><a th:href="@{/a/addGenre}">Add Genre</a></li>
+        <li><a th:href="@{/a/listFilm}">List Film</a></li>
+        <li><a th:href="@{/a/history}">History</a></li>
+        <li><a>Add Actor</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="form-container">
+        <h1>Add New Actor</h1>
+        <form th:action="@{/a/addActor}" th:method="post"> 
+          
+          <div class="form-group">
+            <label id="label-form" for="nama-aktor">Nama Aktor</label>
+            <input type="text" id="nama-aktor" name = "nama" placeholder="Masukkan nama aktor" required>
+          </div>
+    
+          <div class="form-group">
+            <label id="label-form" for="foto-aktor">Foto Aktor</label>
+            <input type="file" id="foto-aktor" accept="image/*" onchange="previewFoto(event)" required>
+            <img id="aktor-preview" alt="Preview Foto Aktor" style="display: none;">
+            <input type="hidden" name="fotoBase64" id="foto-base64">
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="button">Cancel</button>
+            <button type="submit" class="button">Save</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

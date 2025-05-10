@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{css/style-history_detail.css}">
+        <title>Rental Film</title>
+    </head>
+    <body>
+        <div class="container" >
+            <div th:each="pinjam : ${pinjam}">
+                <div class="image" id="cover">
+                    <img src="" />
+                </div>
+                <div class="details"> <!-- detail film: judul, tanggal pinjam, tanggal kembali, denda jika ada -->
+                    <div class="title" th:text="${pinjam.judul}">Film Title</div>
+                    <div class="info">
+                        <div id="pinjam">Borrowing date: </div>
+                        <div th:text="${pinjam.tanggalPinjam}"></div>
+                    </div>
+                    <div class="info kembali">
+                        <div id="kembali">Due date: </div>
+                        <div th:text="${pinjam.tanggalKembali}"></div>
+                    </div>
+                    <div class="info">
+                        <div class="denda">Penalty: </div>
+                        <div th:text="${pinjam.denda}"></div>
+                    </div>
+                    <form method="POST" th:action="@{/return}">
+                        <input type="hidden" name="idfilm" th:value="${pinjam.idfilm}">
+                        <button class="button" type="submit">Return</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="success" hidden>
+            <div class="popup-content" id="popup-success">
+                <h2>Added to cart</h1>
+                <a href="/f" class="button">Close</a>
+            </div>
+        </div>
+        <div class="popup" id="failure" hidden>
+            <div class="popup-content" id="popup-failure">
+                <h2>Failed to add to cart</h1>
+                <a href="/f" class="button">Close</a>
+            </div>
+        </div>
+    </body>
+</html>
